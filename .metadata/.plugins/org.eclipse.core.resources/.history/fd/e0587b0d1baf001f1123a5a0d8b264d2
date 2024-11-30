@@ -1,0 +1,82 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, termpackage.DBConnection" %>
+<%@ page session="true" %>
+
+<%
+    // 로그인된 사용자 ID 가져오기 (세션에서)
+    String userId = (String) session.getAttribute("username");
+
+    // 로그인되지 않은 경우 리다이렉트
+    if (userId == null) {
+        out.println("<script>alert('로그인이 필요합니다.'); location.href='../html/login.html';</script>");
+        return;
+    }
+
+    // 업데이트 처리
+    if ("POST".equalsIgnoreCase(request.getMethod())) {
+        String marketName = request.getParameter("market_name");
+        String description = request.getParameter("description");
+        String imageUrl = request.getParameter("image_url");
+
+        // 값 확인 (디버깅)
+        out.println("전송된 마켓 이름: " + marketName);
+        out.println("전송된 설명: " + description);
+        out.println("이미지 URL: " + imageUrl);
+
+        // 데이터베이스에 업데이트 수행
+        try (Connection conn = DBConnection.getConnection()) {
+            String updateQuery = "UPDATE users SET market_name = ?, description = ?, image_url = ? WHERE id = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
+                pstmt.setString(1, marketName);
+                pstmt.setString(2, description);
+                pstmt.setString(3, imageUrl);
+                pstmt.setString(4, userId);
+
+                int rowsUpdated = pstmt.executeUpdate();
+                
+                if (rowsUpdated > 0) {
+                    out.println("장터 정보가 성공적으로 업데이트되었습니다.");
+                } else {
+                    out.println("업데이트 실패. 다시 시도해주세요.");
+                }
+            }
+        } catch (SQLException e) {
+            out.println("데이터베이스 오류: " + e.getMessage());
+        }
+    }
+%>
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장터 정보 수정</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <h2>장터 정보 수정</h2>
+
+    <!-- 장터 정보 수정 폼 -->
+<form method="POST" action="test.jsp" enctype="multipart/form-data">
+    <div>
+        <label for="market_name">장터 이름:</label>
+        <input type="text" id="market_name" name="market_name" required><br>
+    </div>
+
+    <div>
+        <label for="description">장터 설명:</label>
+        <textarea id="description" name="description" required></textarea><br>
+    </div>
+
+    <div>
+        <label for="image_url">이미지 URL:</label>
+        <input type="text" id="image_url" name="image_url" required><br>
+    </div>
+
+    <button type="submit">수정하기</button>
+</form>
+
+</body>
+</html>

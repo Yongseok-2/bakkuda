@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, termpackage.DBConnection" %>
+<%@ page session="true" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+    String username = (String) session.getAttribute("username");
+    String newMarketName = request.getParameter("newMarketName");
+
+    if (username == null || newMarketName == null) {
+        out.println("<script>alert('장터명을 수정하려면 로그인해야 합니다.'); location.href='../html/login.html';</script>");
+        return;
+    }
+
+    // 데이터베이스 연결
+    Connection conn = DBConnection.getConnection();
+    String sql = "UPDATE users SET market_name = ? WHERE username = ?";
+    PreparedStatement pstmt = conn.prepareStatement(sql);
+    pstmt.setString(1, newMarketName);
+    pstmt.setString(2, username);
+    pstmt.executeUpdate();
+
+    out.println("<script>alert('장터명이 수정되었습니다.'); location.href='interface.jsp';</script>");
+%>
+</body>
+</html>

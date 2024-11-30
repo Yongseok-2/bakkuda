@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, termpackage.DBConnection" %>
+<%@ page session="true" %>
+
+<%
+    String username = (String) session.getAttribute("username");
+    if (username == null) {
+        out.println("<script>alert('로그인해야 합니다.'); location.href='../html/login.html';</script>");
+        return;
+    }
+
+    String marketName = request.getParameter("market_name");
+    String description = request.getParameter("description");
+    String imageUrl = null;
+
+    // 이미지 파일 처리
+    Part filePart = request.getPart("image");
+    if (filePart != null && filePart.getSize() > 0) {
+        String fileName = filePart.getSubmittedFileName();
+        String uploadPath = getServletContext().getRealPath("/images/") + fileName;
+        filePart.write(uploadPath);
+        imageUrl = "/images/" + fileName;
+    }
+
+    try (Connection conn = DBConnection.getConnection()) {
+        String sql = "UPDATE users SET market_name = ?, description = ?, image_url = ? WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, marketName);
+            pstmt.setString(2, description);
+            pstmt.setString(3, imageUrl);
+            pstmt.setString(4, username);
+            pstmt.executeUpdate();
+
+            out.println("<script>alert('정보가 업데이트 되었습니다.'); location.href='my_interface.jsp';</script>");
+        }
+    } catch (SQLException e) {
+        out.println("<script>alert('수정 중 오류가 발생했습니다.'); history.back();</script>");
+    }
+%>

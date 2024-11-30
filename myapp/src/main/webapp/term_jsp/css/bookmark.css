@@ -1,0 +1,80 @@
+.lastest-item-title {
+    width: 1280px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    margin-top: 265px;
+}
+
+.lastest-item-title h2 {
+    padding-inline-start: 10px;
+    padding-bottom: 10px;
+}
+
+.lastest-item {
+    width: 1280px;
+    display: flex;
+    flex-wrap: wrap; /* 여러 상품이 가로로 늘어날 수 있도록 설정 */
+    margin: 0 auto;
+    margin-top: 20px; /* 배너 아래 간격 */
+    gap: 30px;
+}
+
+/* 상품 전체 컨테이너 */
+.product-container {
+    width: 200px; /* 너비 설정 */
+    text-align: left; /* 내용 왼쪽 정렬 */
+    background-color: #fff; /* 배경 색 */
+    padding: 0; /* 내부 여백 없애기 */
+    box-shadow: none; /* 그림자 없애기 */
+    margin: 10px; /* 상품 간격 추가 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 상품 이미지 스타일 */
+.product-image {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 상품명 스타일 */
+.product-name {
+    font-size: 18px;
+    font-weight: bold;
+    padding-inline-start: 5px;
+    margin-top: 10px;
+}
+
+/* 가격 스타일 */
+.product-price {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    padding-inline-start: 5px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* 배지 이미지 스타일 */
+.product-badge {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.badge-img {
+    width: 20px;
+    height: auto;
+}

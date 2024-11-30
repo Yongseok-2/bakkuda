@@ -1,0 +1,134 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.sql.*, termpackage.DBConnection" %>
+<%@ page session="true" %>
+
+<%
+    String username = (String) session.getAttribute("username");
+
+
+	if (username == null) {
+	    // 로그인이 안된 경우 경고 문구와 리다이렉트 설정
+	    out.println("<script>alert('로그인을 하셔야 이용하실 수 있습니다.'); location.href='../html/login.html';</script>");
+	    return; // 이후 코드 실행 방지
+    }
+%>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>바꾸다</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/main2.css">
+</head>
+<body style="overflow-x: hidden">
+
+    <!-- 상단 -->
+    <header class="header">
+        <img src="images/top_banner.svg" alt="맨위 로고" class="top-bar">
+        <div class="search-bar">
+            <a href="index.html"><img src="images/main_logo.svg" alt="로고" class="logo"></a>
+            <form id="searchForm" action="html/search_result.html" method="GET">
+                <div class="search-input-container">
+                    <input type="text" placeholder="🔍 물품명, 장터명, 카테고리 태그 등" class="search-input" id="searchInput" name="query">
+                    <button type="submit" class="search-button" id="searchButton">🔍</button>
+                </div>
+            </form>
+            <div class="icons">
+                <a href="html/bookmark.jsp"><span><img src="images/bookmark01.png" alt="북마크" class="icons"></span></a>
+                <span><img src="images/favorite01.png" alt="즐겨찾기" class="icons"></span>
+                <a href="html/my_interface.jsp"><span><img src="images/interpace01.png" alt="내정보" class="icons"></span></a>
+                                <% 
+                // 로그인 상태 확인 후 아이디와 로그아웃 버튼 표시
+                if (username != null) { 
+                %>
+                    <span class="username-display"><%= username %></span>
+                    <a href="../html/logout.jsp">
+                        <input type="button" class="logout-button" value="로그아웃">
+                    </a>
+                <% 
+                } else { 
+                %>
+                    <a href="../html/login.html">
+                        <input type="button" class="login-button" value="로그인">
+                    </a>
+                <% 
+                } 
+                %>
+            </div>
+        </div>
+        <nav class="menu-bar">
+            <ul>        
+                <li><a href="#"><img src="images/category.svg" alt="카테고리">카테고리</a></li>
+                <li><a href="index.html#my-wants">내가 원해요</a></li>
+                <li><a href="index.html#others-wants">상대방이 원해요</a></li>     
+                <li><a href="#">급상승</a></li>
+                <li><a href="#">쏙</a></li>
+                <li><a href="#">이벤트</a></li>
+                <li><a href="html/item.jsp">상품등록</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="banner-container">
+            <div class="banner">
+                <img src="images/main_banner1.svg" alt="배너" class="banner-img">
+            </div>
+        </div>
+
+        <!-- 사이드바 -->
+        <div style="flex: 0 0 auto;">
+            <div class="container" id="stickyContainer">
+                <button type="button" value="Top" onclick="clickme()" style="width: 100%; margin-bottom: 10px; padding: 5px; border-radius: 5px; background: white; border: 1px solid #0880F8;">Top</button>
+                <div class="heart-container">
+                    <div class="heart">❤️</div>
+                    <span class="heart-count">2</span> <!-- 하트 받은 개수 -->
+                </div>
+                <hr class="divider"> <!-- 구분선-->
+                
+                <div class="recent-viewed">최근 본 상품</div>
+                <ul id="recentViewedList"></ul> <!-- 최근 본 상품 목록 -->
+                <ul id="delete-btn"></ul>
+                <!-- 전체 삭제 버튼 -->
+            </div>
+        </div>
+
+        <!-- 최근 상품 -->
+		<div class="lastest-item-title"><h2>최근 올라온 상품</h2></div>
+		<div class="lastest-item">
+		    <%
+		        Connection conn = DBConnection.getConnection();
+		        if (conn != null) {
+		            try (Statement stmt = conn.createStatement();
+		                 ResultSet rs = stmt.executeQuery("SELECT pd_name, pd_price, pd_image FROM products")) {
+		                while (rs.next()) {
+		    %>
+		                    <!-- 상품 개별 컨테이너 -->
+		                    <div class="product-container">
+		                        <div class="want-item">
+									<img src="<%= rs.getString("pd_image") %>" alt="상품 이미지" class="pd-image">
+
+		                            <h5 class="pd-name"><%= rs.getString("pd_name") %></h5>
+		                            <p class="pd-price">₩<%= rs.getInt("pd_price") %></p>
+		                            <a href="#" class="trade-button">거래하기</a>
+		                        </div>
+		                    </div>
+		    <%
+		                }
+		            } catch (SQLException e) {
+		                out.println("쿼리 실행 중 오류 발생: " + e.getMessage());
+		            } finally {
+		                try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+		            }
+		        } else {
+		            out.println("DB 연결 실패");
+		        }
+		    %>
+		</div>
+	</main>
+
+
+    <script src="scripts.js"></script>
+</body>
+</html>

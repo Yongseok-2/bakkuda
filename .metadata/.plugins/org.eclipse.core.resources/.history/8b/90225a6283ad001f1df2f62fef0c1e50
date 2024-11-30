@@ -1,0 +1,80 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.io.*" %>
+<%@ page import="com.oreilly.servlet.*" %>
+<%@ page import="com.oreilly.servlet.multipart.*" %>
+<%@ page import="termpackage.DBConnection" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 처리</title>
+</head>
+<body>
+    <h2>상품 처리 결과</h2>
+<%
+    String uploadPath = "D:\\term\\myapp\\src\\main\\webapp\\term_jsp\\upload"; // 파일 저장 경로
+    int maxSize = 5 * 1024 * 1024; // 5MB 제한
+    String encoding = "UTF-8";
+
+    MultipartRequest multi = null;
+
+    try {
+        // 파일 업로드 처리
+        multi = new MultipartRequest(request, uploadPath, maxSize, encoding, new DefaultFileRenamePolicy());
+
+        // 업로드된 파일명 및 데이터 수집
+        Enumeration files = multi.getFileNames();
+        String fileInputName = (String) files.nextElement();
+        String pd_image = multi.getFilesystemName(fileInputName); // 저장된 파일명
+        String originalName = multi.getOriginalFileName(fileInputName); // 원본 파일명
+
+        // 폼 데이터 수집
+        String pd_name = multi.getParameter("pd_name");
+        int pd_price = Integer.parseInt(multi.getParameter("pd_price"));
+        String pd_information = multi.getParameter("pd_information");
+        String category = multi.getParameter("category");
+        String owner = multi.getParameter("owner");
+        String pd_status = multi.getParameter("pd_status");
+
+        // DB 저장
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = DBConnection.getConnection();
+            if (conn != null) {
+                // SQL 작성 및 실행
+                String sql = "INSERT INTO products4141 (pd_name, pd_price, pd_image, pd_information, owner, pd_status, category) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                stmt = conn.prepareStatement(sql);
+                stmt.setString(1, pd_name);
+                stmt.setInt(2, pd_price);
+                stmt.setString(3, "upload/" + pd_image); // 상대 경로 저장
+                stmt.setString(4, pd_information);
+                stmt.setString(5, owner);
+                stmt.setString(6, pd_status);
+                stmt.setString(7, category);
+
+                int rowsAffected = stmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    out.println("<p>상품 등록 성공!</p>");
+                } else {
+                    out.println("<p>상품 등록 실패. 다시 시도해 주세요.</p>");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            out.println("<p>SQL 에러 발생: " + e.getMessage() + "</p>");
+        } finally {
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        out.println("<p>파일 업로드 에러: " + e.getMessage() + "</p>");
+    }
+%>
+</body>
+</html>

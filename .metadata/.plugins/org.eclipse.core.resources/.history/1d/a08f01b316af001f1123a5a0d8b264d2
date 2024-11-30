@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, termpackage.DBConnection" %>
+<%@ page session="true" %>
+<%@ page import="java.io.*" %>
+
+<%
+    String username = (String) session.getAttribute("username");
+
+    if (username == null) {
+        out.println("<script>alert('로그인이 하셔야 이용하실 수 있습니다.'); location.href='../html/login.html';</script>");
+        return;
+    }
+
+    String marketName = request.getParameter("newMarketName");
+    String description = request.getParameter("newDescription");
+    Part newImagePart = request.getPart("newImage"); // 이미지 파일 받기
+    String newImagePath = null;
+
+    // 이미지 파일 저장 (예시로 /images 폴더에 저장)
+    if (newImagePart != null && newImagePart.getSize() > 0) {
+        String fileName = newImagePart.getSubmittedFileName();
+        String uploadDir = getServletContext().getRealPath("/") + "images"; 
+        File file = new File(uploadDir, fileName);
+
+        newImagePart.write(file.getAbsolutePath());
+        newImagePath = "images/" + fileName; // 저장된 이미지 경로
+    }
+
+    try (Connection conn = DBConnection.getConnection()) {
+        String updateSQL = "UPDATE market SET market_name = ?, description = ?, market_image = ? WHERE owner = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(updateSQL)) {
+            pstmt.setString(1, marketName);
+            pstmt.setString(2, description);
+            pstmt.setString(3, newImagePath); // 이미지 경로 업데이트
+            pstmt.setString(4, username); // 현재 로그인된 사용자
+
+            int rowsUpdated = pstmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                out.println("<script>alert('장터 정보가 성공적으로 수정되었습니다.'); location.href='my_interface.jsp';</script>");
+            } else {
+                out.println("<script>alert('수정 실패. 다시 시도해 주세요.'); history.back();</script>");
+            }
+        }
+    } catch (SQLException | IOException e) {
+        e.printStackTrace();
+        out.println("<script>alert('서버 오류가 발생했습니다.'); history.back();</script>");
+    }
+%>

@@ -1,0 +1,359 @@
+.item-interface-container{
+    padding: 20px;
+    margin: 260px auto 0; 
+    width: 1280px; 
+    height: 1000px;
+    text-align: left;
+}
+
+.item-interface-container h2{
+    border-bottom: 1px solid black;
+    padding-inline-start: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.item-img {
+    display: flex; /* 텍스트와 업로드 박스를 나란히 배치 */
+    align-items: flex-start; /* 위쪽 정렬 */
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+#image-count {
+    width: 200px;
+    padding-inline-start: 5px;
+}
+
+.photo-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#photo-preview {
+    width: 800px;
+    display: flex;
+    flex-wrap: wrap; /* 여러 이미지가 줄 바꿈되어 보이도록 설정 */
+    gap: 10px; /* 이미지 간격 */
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.img-preview {
+    position: relative;
+    width: 120px; /* 미리보기 컨테이너의 너비 */
+    height: 120px; /* 미리보기 컨테이너의 높이 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+}
+
+.img-preview img {
+    max-width: 100%; /* 컨테이너의 너비에 맞추어 이미지 축소 */
+    max-height: 100%; /* 컨테이너의 높이에 맞추어 이미지 축소 */
+    object-fit: contain; /* 이미지의 비율을 유지하며 컨테이너에 맞춤 */
+    object-position: center; /* 이미지를 중앙 정렬 */
+}
+
+
+.remove-btn {
+    top: 5px;
+    right: 5px;
+    position: absolute;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#custom-upload-box {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px; /* 이미지 등록 박스와 미리보기 간격 */
+    color: #888; /* "이미지 등록" 글씨 색을 회색으로 */
+}
+
+#custom-upload-box:hover {
+    background-color: #e0e0e0;
+}
+
+.upload-box img {
+    width: 60px;
+    height: auto;
+    padding-bottom: 5px;
+}
+
+
+.item-input-container {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+}
+
+.item-input {
+    width: 700px !important;
+    height: 100% !important; 
+    border: 1px solid #ccc !important;
+    outline: none !important;
+    padding: 12px !important;
+    font-size: 15px;
+}
+
+.item-input:focus {
+    border-color: #ddd; /* 포커스 시 테두리 색 변경 */
+    box-shadow: 0 0 5px #0880F8;; /* 포커스 시 그림자 효과 */
+}
+
+.item-cartegory-container {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 40px;
+    margin-bottom: 20px;
+}
+
+.item-cartegory {
+    width: 200px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px; 
+}
+
+.trade-title {
+    height: 120px;
+}
+
+.item-trade-container{
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    height: 120px;
+    margin-bottom: 30px;
+}
+
+.trade-title-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.trade-system-checkbox{
+    display: flex;
+    gap: 30px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.trade-system-checkbox div {
+    display: flex; /* 체크박스와 텍스트를 나란히 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 8px; /* 체크박스와 텍스트 사이 간격 */
+}
+
+.meet, .post {
+    text-align: center;
+    gap: 2px;
+}
+
+.trade-method{
+    display: flex;
+    padding-bottom: 20px;
+    padding-left: 5px;
+    gap: 10px;
+}
+
+.exchange {
+    padding-inline-start: 5px;
+}
+
+.trade-box {
+    display: flex;
+    align-items: center;
+}
+
+.trade-box img {
+    width: 30px; /* !important로 우선순위 높이기 */
+    height: auto;
+    margin-inline: 5px;
+}
+
+.trade-box label {
+    display: flex;
+    align-items: center;
+}
+
+.sell-box {
+    display: flex;
+    align-items: center;
+}
+
+.sell-box img {
+    width: 30px;
+    height: auto;
+    margin-inline: 5px;
+}
+
+.sell-box label {
+    display: flex;
+    align-items: center;
+}
+
+.item-condition {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    height: 230px;
+    margin-bottom: 30px;
+}
+
+.item-condition fieldset {
+    border: none; /* 주변 사각형 선 제거 */
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
+}
+
+legend {
+    width: 200px; /* 제목 너비 200px로 설정 */
+    font-weight: bold;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column; /* 세로로 정렬 */
+}
+
+.radio-group label {
+    margin-bottom: 20px; /* 각 항목 간의 간격 설정 */
+}
+
+.location-select-container {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 40px;
+    margin-bottom: 20px;
+}
+
+.location-select {
+    width: 200px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px; 
+}
+
+#details {
+    display: flex;
+    margin-top: 30px; /* 세부사항 입력 필드의 위치 설정 */
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+}
+
+#item_details {
+    width: 500px; /* 너비 고정 */
+    height: 200px; /* 높이 고정 */
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+#item_details:focus {
+    border-color: #ddd; /* 포커스 시 테두리 색 변경 */
+    box-shadow: 0 0 5px #0880F8;; /* 포커스 시 그림자 효과 */
+}
+
+#upload-container {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin-top: 20px; /* 위쪽 간격 */
+}
+
+#upload-button {
+    background-color: #0880F8; /* 버튼 색상 */
+    color: white; /* 텍스트 색상 */
+    border: none;
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px 20px; /* 버튼 크기 */
+    font-size: 16px; /* 글자 크기 */
+    cursor: pointer; /* 마우스 포인터 변경 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+}
+
+#upload-button:hover {
+    background-color: #0056b3; /* 호버 시 색상 */
+}
+
+#upload-button:active {
+    background-color: #003f7d; /* 클릭 시 색상 */
+}
+
+
+
+
+
+
+
+.container-fluid {
+        width:80%;
+        margin-top:40px;
+    }
+    .table th {
+        text-align:center;
+    }
+    .table td {
+        text-align:center;
+    }
+    .img_div {
+        float:left;
+        /* width:100px;
+        height:70px; */
+        margin-right: 5px;
+        margin-bottom:5px;
+        background-color: black;
+        height: 95px;
+    }
+    .img_div_img {
+        width: 100px;
+        height: 70px;
+ 
+ 
+    }
+    .i_div {
+        position: relative;
+        /* left: 86px;
+        top: 17px; */
+    }

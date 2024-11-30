@@ -1,0 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page session="true" %>
+<%
+    // 세션에서 사용자 정보를 제거
+    session.invalidate(); // 세션 무효화
+    // 메인 화면인 index.jsp로 리디렉션
+    response.sendRedirect("index.jsp");
+%>

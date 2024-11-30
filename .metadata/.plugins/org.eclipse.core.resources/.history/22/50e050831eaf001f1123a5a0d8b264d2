@@ -1,0 +1,145 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, termpackage.DBConnection" %>
+<%@ page session="true" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<%@ page import="java.io.File" %>
+
+<%
+    // 로그인된 사용자 ID 가져오기 (세션에서)
+    String userId = (String) session.getAttribute("username");
+
+    // 로그인되지 않은 경우 리다이렉트
+    if (userId == null) {
+        out.println("<script>alert('로그인이 필요합니다.'); location.href='../html/login.html';</script>");
+        return;
+    }
+
+    // 장터 정보 수정 처리
+    if ("POST".equalsIgnoreCase(request.getMethod())) {
+        // 디렉토리 설정
+        String uploadPath = application.getRealPath("/uploads");
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        // MultipartRequest 객체 생성
+        MultipartRequest multi = new MultipartRequest(request, uploadPath, 10 * 1024 * 1024, "UTF-8", new DefaultFileRenamePolicy());
+
+        // 데이터 읽기
+        String marketName = multi.getParameter("market_name");
+        String description = multi.getParameter("description");
+        String imageUrl = multi.getParameter("image_url");
+
+        // 데이터베이스 업데이트
+        try (Connection conn = DBConnection.getConnection()) {
+            String updateQuery = "UPDATE users SET market_name = ?, description = ?, image_url = ? WHERE id = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
+                pstmt.setString(1, marketName);
+                pstmt.setString(2, description);
+                pstmt.setString(3, imageUrl);
+                pstmt.setString(4, userId);
+
+                int rowsUpdated = pstmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    out.println("<script>alert('장터 정보가 성공적으로 업데이트되었습니다.');</script>");
+                } else {
+                    out.println("<script>alert('업데이트 실패. 다시 시도해주세요.');</script>");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("데이터베이스 오류: " + e.getMessage());
+        }
+    }
+%>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지 및 장터 정보 수정</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/main2.css">
+    <link rel="stylesheet" href="../css/interface.css">
+</head>
+<body style="overflow-x: hidden">
+    <header class="header">
+        <!-- 기존 헤더 코드 -->
+        <div class="search-bar">
+            <a href="../index.jsp"><img src="../images/main_logo.svg" alt="로고" class="logo"></a>
+            <form id="searchForm" action="search_result.jsp" method="GET">
+                <div class="search-input-container">
+                    <input type="text" placeholder="🔍 물품명, 장터명, 카테고리 태그 등" class="search-input" id="searchInput" name="query">
+                    <button type="submit" class="search-button" id="searchButton">🔍</button>
+                </div>
+            </form>
+            <div class="icons">
+                <span class="username-display"><%= userId %></span>
+                <a href="../html/logout.jsp">
+                    <input type="button" class="logout-button" value="로그아웃">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="interface-main">
+        <!-- 마이페이지 섹션 -->
+        <section class="interface-container">
+            <div class="interface-info-container">
+                <h2>마이페이지</h2>
+                <p>로그인 사용자: <strong><%= userId %></strong></p>
+                <!-- 상품 리스트 표시 -->
+                <div class="user-product-container">
+                    <h3>내 상품 리스트</h3>
+                    <div id="product-list">
+                        <%
+                            try (Connection conn = DBConnection.getConnection();
+                                 PreparedStatement pstmt = conn.prepareStatement(
+                                     "SELECT pd_name, pd_price, pd_image FROM products WHERE owner = ?")) {
+                                pstmt.setString(1, userId);
+                                try (ResultSet rs = pstmt.executeQuery()) {
+                                    while (rs.next()) {
+                        %>
+                                        <div class="product-item">
+                                            <img src="<%= "../" + rs.getString("pd_image") %>" alt="상품 이미지">
+                                            <h4><%= rs.getString("pd_name") %></h4>
+                                            <p>₩<%= rs.getInt("pd_price") %></p>
+                                        </div>
+                        <%
+                                    }
+                                }
+                            } catch (SQLException e) {
+                                out.println("<p>상품 정보를 불러오는 중 오류가 발생했습니다: " + e.getMessage() + "</p>");
+                            }
+                        %>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 장터 정보 수정 섹션 -->
+        <section class="update-market">
+            <h2>장터 정보 수정</h2>
+            <form method="POST" action="" enctype="multipart/form-data">
+                <div>
+                    <label for="market_name">장터 이름:</label>
+                    <input type="text" id="market_name" name="market_name" required><br>
+                </div>
+                <div>
+                    <label for="description">장터 설명:</label>
+                    <textarea id="description" name="description" required></textarea><br>
+                </div>
+                <div>
+                    <label for="image_url">이미지 URL:</label>
+                    <input type="text" id="image_url" name="image_url" required><br>
+                </div>
+                <button type="submit">수정하기</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="../scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+					<div class="product-header">
+					    <div class="photo-container">
+					        <img src="<%= "../" + pdImage %>" alt="상품 이미지" class="product-image">
+					    </div>
+					    <div class="product-maininfo">
+					        <div class="info-top">
+					            <div class="item-name"><%= pdName %></div>
+					            <div class="category">카테고리: <%= category %></div>
+					        </div> 
+					        <div class="info-middle">
+					            <div class="trade-method">거래 방법: <%= tradeMethod %></div>
+					            <div class="product-price">₩<%= pdPrice %></div>
+					        </div>
+					        <div class="info-bottom">
+					            <p>판매자: <%= owner != null ? owner : "익명" %></p>
+					            <p>설명: <%= pdInformation %></p>
+					        </div>
+					        <div class="buttons">
+					            <a href="#" class="chat-button">대화하기</a>
+					            <a href="#" class="trade-button">거래하기</a>
+					        </div>
+					    </div>
+					</div>

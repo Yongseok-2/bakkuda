@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>바꾸다</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/item_info.css">  
+</head>
+<body style="overflow-x: hidden"></body>
+<body>
+    <!--상단-->
+    <header class="header">
+        <img src="../images/top_banner.svg" alt="맨위 로고" class="top-bar">
+        <div class="search-bar">
+            <a href="../index.html"><img src="../images/main_logo.svg" alt="로고" class="logo"></a>
+            <form id="searchForm" action="search_result.html" method="GET">
+                <div class="search-input-container">
+                    <input type="text" placeholder="🔍 물품명, 장터명, 카테고리 태그 등" class="search-input" id="searchInput" name="query">
+                    <button type="submit" class="search-button" id="searchButton">🔍</button>
+                </div>
+            </form>
+                <div class="icons">
+                    <a href="bookmark.html"><span><img src="../images/bookmark01.png" alt="북마크" class="icons"></span></a>
+                    <span><img src="../images/favorite01.png" alt="즐겨찾기" class="icons"></span>
+                    <a href="my_interface.html"><span><img src="../images/interpace01.png" alt="내정보" class="icons"></span></a>
+                    <a href="login.html"><input type="button" class="icons" value="로그인"/></a>
+                </div>
+        </div>
+        <nav class="menu-bar">
+            <ul>
+                <li><a href="#"><img src="../images/category.svg" alt="카테고리">카테고리</a></li>
+                <li><a href="../index.html#my-wants">내가 원해요</a></li>
+                <li><a href="../index.html#others-wants">상대방이 원해요</a></li>     
+                <li><a href="#">급상승</a></li>
+                <li><a href="#">쏙</a></li>
+                <li><a href="#">이벤트</a></li>
+                <li><a href="item.html">상품등록</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="item-info">
+            <div class="product-header" style="display: flex;">
+                <!-- 왼쪽 이미지 영역 -->
+                <div class="photo-container" >
+                    <div class="empty-image">
+                        이미지 없음
+                    </div>
+                </div>
+                <!-- 세로 구분선 -->
+                <div style="width: 1px; height: 400px; background-color: #ddd; margin: 20px 0; margin-right: 5px; margin-left: 15px;"></div>
+                <!-- 오른쪽 상품 정보 영역 -->
+                <div class="product-maininfo">
+                    <div class="info-top">
+                        <a href="#" style="text-decoration: underline;">노트북 / PC </a>
+                        > <a href="#" style="text-decoration: underline;">삼성</a>
+                        <div class="item-name">삼성 노트북 미개봉 새 상품</div>
+                    </div>
+                    <div class="info-middle">
+                        <div class="trade-info">
+                            <div class="trade-icon"><img src="../images/trade-icon.svg"></div>
+                            <div class="trade-details">
+                                <a href="#" style="text-decoration: underline;">노트북 / PC</a>
+                                <div class="trade-price">900,000원 ~ 1,000,000원</div>
+                            </div>
+                        </div>
+                        <div class="sell-info">
+                            <div class="trade-icon"><img src="../images/sell-icon.svg"></div>
+                            <div class="product-price">930,000원</div>
+                        </div>
+                    </div>
+                    <div class="info-bottom">
+                        <div class="heart-count-icon"><img src="../images/fill-heart.svg"></div>
+                        <div class="heart-count">2</div>
+                        <div style="width: 1px; height: 60px; background-color: #ddd; margin: 20px 0; margin-right: 10px; margin-left: 20px;"></div>
+                        <div class="view-count-icon"><img src="../images/fill-eye.svg"></div>
+                        <div class="view-count">87</div>
+                        <div style="width: 1px; height: 60px; background-color: #ddd; margin: 20px 0; margin-right: 10px; margin-left: 20px;"></div>
+                        <div class="time-count-icon"><img src="../images/fill-clock.svg"></div>
+                        <div class="time-count">3일전</div>
+                        <a href="#"><div class="report-icon"><img src="../images/fill-report.svg"></div>
+                        <div class="report">신고하기</div></a>
+                    </div>
+                    <div class="buttons">
+                        <a href="#"><span><img src="../images/heart.svg" alt="쏙" class="heart-button"></span></a>
+                        <a href="#" class="chat-button">대화하기</a>
+                        <a href="#" class="trade-button">거래하기</a>   
+                    </div>
+                </div>
+            </div>
+            <div class="product-subinfo">
+                <div class="infotext">
+                    <div class="infotext-title"><h2>상품정보</h2></div>
+                    <div class="infotext-text">안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요</div>
+                </div>
+                <div class="shopinfo">
+                    <div class="shopinfo-title"><h2>창고정보</h2></div>
+                    <div class="shopinfo-top">
+                        <div class="shop-img"><img src="../images/account.svg"></div>
+                        <div class="shop-details">
+                            <div class="shop-name">잘팔리는 창고</div>
+                            <div class="shop-sum">
+                                <a href="#">물품<div class="user-item-count">2</div></a>
+                                <div style="width: 1px; height: 30px; background-color: #929292a6; margin: 20px 0; margin-right: 10px; margin-left: 20px;"></div>
+                                <a href="#">팔로워<div class="user-follower-count">10</div></a>
+                                <div style="width: 1px; height: 30px; background-color: #929292a6; margin: 20px 0; margin-right: 10px; margin-left: 20px;"></div>
+                                <a href="#">거래후기<div class="user-review-count">4</div></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clover">
+                        <div class="clover-title">클로버지수</div>
+                        <div class="clover-point">53  /  	100</div>
+                    </div>
+                    <div class="clover-bar">
+                        <div class="progress2 progress-moved">
+                          <div class="progress-bar2">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="simmilar">
+                <div class="silmmiliar-title"><h2>비슷한 물품 추천</h2></div>
+            </div>
+        </div>
+
+        
+
+        
+
+    
+
+        <!-- 오른쪽바 -->
+        <div class="sidebar">
+            <div class="container" id="stickyContainer">
+                <button type="button" value="Top" onclick="clickme()" style="width: 100%; margin-bottom: 10px; padding: 5px; border-radius: 5px; background: white; border: 1px solid #0880F8;">Top</button>
+                <div class="heart-container">
+                    <div class="heart">❤️</div>
+                    <span class="heart-count">2</span> <!-- 하트 받은 개수 -->
+                </div>
+                <hr class="divider"> <!-- 구분선-->
+                <div class="recent-viewed">최근 본 상품</div>
+                <ul id="recentViewedList"></ul> <!-- 최근 본 상품 목록 -->
+                <ul id="delete-btn"></ul>
+                <!-- 전체 삭제 버튼 -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="../scripts.js"></script>
+</body>
+</html>

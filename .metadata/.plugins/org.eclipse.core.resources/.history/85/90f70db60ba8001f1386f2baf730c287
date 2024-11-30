@@ -1,0 +1,84 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, termpackage.DBConnection" %>
+<%@ page session="true" %>
+
+<%
+    String username = (String) session.getAttribute("username");
+    
+    if (username == null) {
+        out.println("<script>alert('로그인을 하셔야 이용하실 수 있습니다.'); location.href='../html/login.html';</script>");
+        return;
+    }
+    
+    // DB 연결 및 사용자 정보 가져오기
+    Connection conn = DBConnection.getConnection();
+    String query = "SELECT market_name, profile_image, description FROM interface WHERE username = ?";
+    PreparedStatement pstmt = conn.prepareStatement(query);
+    pstmt.setString(1, username);
+    ResultSet rs = pstmt.executeQuery();
+    
+    String marketName = "";
+    String profileImage = "";
+    String description = "";
+    
+    if (rs.next()) {
+        marketName = rs.getString("market_name");
+        profileImage = rs.getString("profile_image");
+        description = rs.getString("description");
+    }
+    
+    rs.close();
+    pstmt.close();
+    conn.close();
+%>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/interface.css">
+</head>
+<body>
+    <!-- 상단 -->
+    <header class="header">
+        <!-- (상단바 내용 생략) -->
+    </header>
+
+    <!-- 메인 내용 -->
+    <main class="interface-main">
+        <div class="interface-container">
+            <div class="interface-img-container">
+                <div class="interface-img" id="profileImage">
+                    <img src="<%= profileImage %>" alt="프로필 이미지">
+                    <span class="change-text" id="changeText">이미지 변경</span>
+                </div>
+                <input type="file" id="imageInput" style="display: none;" accept="image/*">
+                <h3 id="market-name-img"><%= marketName %></h3>
+                <div class="interface-star">
+                    <!-- 별점 부분 생략 -->
+                </div>
+            </div>
+            <div class="interface-name-container">
+                <div class="interface-name">
+                    <h3 id="market-name-text"><%= marketName %>
+                        <form action="updateMarketName.jsp" method="POST" style="display:inline;">
+                            <input type="text" name="newMarketName" value="<%= marketName %>" required>
+                            <button type="submit" class="update-button">장터명 수정</button>
+                        </form>
+                    </h3>
+                    <p id="market-description"><%= description %></p>
+                    <form action="updateDescription.jsp" method="POST">
+                        <textarea id="description-editor" class="description-editor" maxlength="1000" name="newDescription"><%= description %></textarea>
+                        <button type="submit" class="update-button">소개글 수정</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../scripts.js"></script>
+    <script src="../js/interface.js"></script>
+</body>
+</html>

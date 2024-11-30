@@ -1,0 +1,523 @@
+.main-content {
+    padding-top: 260px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+}
+.item-info {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+
+}
+
+.product-header {
+    display: flex !important;
+    width: 100%;
+    border-bottom: 1px solid #000000;
+    padding-top: 20px;
+}
+
+.photo-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+.empty-image {
+  width: 400px; 
+  height: 400px; 
+  background-color: #f0f0f0; 
+  border: 1px solid #ddd; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  
+}
+.product-image {
+  width: 400px; 
+  height: 400px; 
+  background-color: #f0f0f0; 
+  border: 1px solid #ddd; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  
+}
+
+.product-maininfo {
+    justify-content: center;
+    padding-left: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    gap: 15px;
+}
+
+.product-info a {
+  display: inline; /* 각 링크가 한 줄에 나열되도록 */
+}
+
+.info-middle img {
+  width: 70px;
+  height: auto;
+  margin-right: 15px;
+}
+
+.item-name {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.trade-info{
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+}
+
+.trade-details {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+}
+
+.trade-price {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.sell-info {
+    display: flex;
+    align-items: center;
+}
+
+.product-price {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.info-bottom {
+  width: 630px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin-top: 15px;
+}
+
+.info-bottom img {
+  width: 40px;
+  height: auto;
+  margin-right: 5px;
+}
+
+.info-bottom a {
+  display: flex;
+  align-items: center;
+}
+
+.heart-count {
+  color: #929292a6;
+  margin-bottom: 3px;
+  font-size: 20px;
+}
+
+.view-count {
+  color: #929292a6;
+  margin-bottom: 3px;
+  font-size: 20px;
+}
+
+.time-count {
+  color: #929292a6;
+  margin-bottom: 3px;
+  font-size: 20px;
+}
+
+.report-icon {
+  margin-left: 200px;
+}
+
+.report {
+  color: #929292a6;
+  margin-bottom: 3px;
+  font-size: 20px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.horizon-bar {
+  width: 600px;  /* 세로줄의 두께 */
+  background-color: #ddd;  /* 세로줄 색상 */
+  height: 1px;  /* 세로줄의 높이 */
+  margin-top: 10px;
+}
+
+.heart-button {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.chat-button {
+  background-color: #69a6e4;
+  box-shadow: 0px 5px 0px 0px #437bb3;
+  display: block;
+  position: relative;
+  float: left;
+  width: 250px;
+  padding: 0;
+  margin: 10px 20px 10px 0;
+  font-weight: 600;
+  text-align: center;
+  line-height: 50px;
+  color: #ffffff;
+  border-radius: 5px;
+  transition: all 0.2s ;
+  font-size: 30px;
+}
+
+.chat-button:hover {
+    box-shadow: 0px 0px 0px 0px #437bb3;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.trade-button {
+    background-color: #0880F8;
+    box-shadow: 0px 5px 0px 0px #06498c;
+    display: block;
+    position: relative;
+    float: left;
+    width: 250px;
+    padding: 0;
+    margin: 10px 20px 10px 0;
+    font-weight: 600;
+    text-align: center;
+    line-height: 50px;
+    color: #FFF;
+    border-radius: 5px;
+    transition: all 0.2s ;
+    font-size: 30px;
+}
+
+.trade-button:hover {
+    box-shadow: 0px 0px 0px 0px #06498c;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.product-subinfo {
+  width: 100%;
+  min-height: 600px;
+  border-bottom: 1px solid #000000;
+}
+
+.infotext {
+  width: 600px;
+}
+
+.infotext-title h2 {
+  padding-inline-start: 5px;
+  padding-bottom: 5px;
+  width: 650px;
+  border-bottom: 1px solid #ddd;
+}
+
+.infotext-text {
+  margin-top: 10px;
+  padding-inline: 5px;
+}
+
+.product-subinfo{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.shopinfo {
+  width: 450px;
+}
+
+.shopinfo-title h2{
+  padding-inline-start: 5px;
+  padding-bottom: 5px;
+  width: 450px;
+  border-bottom: 1px solid #ddd;
+}
+
+.shopinfo-top{
+  display: flex;
+  align-items: center;
+}
+
+.shop-img img{
+  width: 100px;
+  height: auto;
+  padding-top: 10px;
+}
+
+.shop-name {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.shop-details {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.shop-sum {
+  width: 630px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.shop-sum a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #929292a6;
+  font-size: 20px;
+}
+
+.user-item-count {
+  padding-left: 10px;
+  margin-top: 3px;
+}
+
+.user-follower-count {
+  padding-left: 10px;
+  margin-top: 3px;
+}
+
+.user-review-count {
+  padding-left: 10px;
+  margin-top: 3px;
+}
+
+.clover {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.clover-title {
+  font-size: 25px;
+  font-weight: bold;
+  padding-inline-start: 5px;
+  padding-bottom: 5px;
+}
+
+.clover-bar {
+  width: 450px;
+  text-align: center;
+  padding: 5;
+}
+
+.progress2 {
+  padding: 5px;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25),
+    0 1px rgba(255, 255, 255, 0.08);
+}
+
+.progress-bar2 {
+  height: 18px;
+  border-radius: 30px;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.05)
+  );
+  transition: 0.4s linear;
+  transition-property: width, background-color;
+}
+
+.progress-moved .progress-bar2 {
+  width: 85%;
+  background-color: rgb(37, 249, 114);
+  animation: progressAnimation 3s;
+}
+
+@keyframes progressAnimation {  /* 수정필요*/
+  0% {
+    width: 0%;
+    background-color: #e6fae6;
+  }
+  100% {
+    width: 85%;
+    background-color: rgb(37, 249, 114);
+  }
+}
+
+.simmilar {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding-inline-start: 20px;
+}
+
+
+
+
+
+
+
+/* 배너 전체를 감싸는 컨테이너 */
+.banner-container {
+    width: 100%; /* 페이지 전체 너비 */
+    height: auto;
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    z-index: 9; /* 헤더보다 아래로 */
+    align-items: center;
+}
+
+/* 배너 스타일 */
+.banner {
+    padding-top: 245px;
+    width: 1980px; /* 배너의 고정 너비 */
+    height: auto;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    background-color: white; /* 배경 흰색 */
+    margin-bottom: 50px;
+}
+
+.banner img {
+    width: 1980px;
+    height: auto;
+    border-bottom: 1px solid #000000;
+}
+
+.main-item-list {
+    width: 1280px;
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center;
+    margin-left: 300px;
+}
+
+.lastest-item-title {
+    width: 1280px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin-left: 350px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.lastest-item-title h2 {
+    padding-inline-start: 10px;
+}
+
+.lastest-item {
+    width: 1280px;
+    display: flex;
+    flex-wrap: wrap; /* 여러 상품이 가로로 늘어날 수 있도록 설정 */
+    margin: 0 auto;
+    margin-top: 20px; /* 배너 아래 간격 */
+    gap: 30px;
+}
+
+/* 상품 전체 컨테이너 */
+.product-container {
+    width: 220px; /* 너비 설정 */
+    text-align: left; /* 내용 왼쪽 정렬 */
+    background-color: #fff; /* 배경 색 */
+    padding: 0; /* 내부 여백 없애기 */
+    box-shadow: none; /* 그림자 없애기 */
+    margin: 10px; /* 상품 간격 추가 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.want-item {
+    text-align: center;
+}
+
+/* 상품 이미지 스타일 */
+.pd-image {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.pd-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 상품명 스타일 */
+.pd-name {
+    font-size: 18px;
+    font-weight: bold;
+    padding-inline-start: 5px;
+    margin-top: 10px;
+}
+
+/* 가격 스타일 */
+.pd-price {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    padding-inline-start: 5px;
+    margin-top: 10px;
+
+    gap: 5px; /* 텍스트와 아이콘 간격 */
+}
+
+
+/* 배지 이미지 스타일 */
+.pd-badge {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.badge-img {
+    width: 20px;
+    height: auto;
+}
+
+
+
+.trade-method-icons {
+    display: flex;
+    justify-content: center;
+    gap: 5px; /* 아이콘과 가격 간의 간격을 20px로 설정 */
+    margin-top: 10px; /* 아이콘과 가격 위쪽 간격 추가 */
+}
+
+.trade-icon {
+    width: 20px; /* 아이콘 크기 조정 */
+    height: 20px;
+}
+
+

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>바꾸다</title>
+    <link rel="stylesheet" href="../styles.css">    
+    <link rel="stylesheet" href="../css/trade-offer.css">
+</head>
+<body style="overflow-x: hidden">
+
+    <!--상단-->
+    <header class="header">
+        <img src="../images/top_banner.svg" alt="맨위 로고" class="top-bar">
+        <div class="search-bar">
+            <a href="../index.html"><img src="../images/main_logo.svg" alt="로고" class="logo"></a>
+            <form id="searchForm" action="search_result.html" method="GET">
+                <div class="search-input-container">
+                    <input type="text" placeholder="🔍 물품명, 장터명, 카테고리 태그 등" class="search-input" id="searchInput" name="query">
+                    <button type="submit" class="search-button" id="searchButton">🔍</button>
+                </div>
+            </form>
+            <div class="icons">
+                <a href="bookmark.html"><span><img src="../images/bookmark01.png" alt="북마크" class="icons"></span></a>
+                <span><img src="../images/favorite01.png" alt="즐겨찾기" class="icons"></span>
+                <a href="my_interface.html"><span><img src="../images/interpace01.png" alt="내정보" class="icons"></span></a>
+                <a href="login.html"><input type="button" class="icons" value="로그인"/></a>
+            </div>
+        </div>
+        <nav class="menu-bar">
+            <ul>
+                <li><a href="#"><img src="../images/category.svg" alt="카테고리">카테고리</a></li>
+                <li><a href="../index.html#my-wants">내가 원해요</a></li>
+                <li><a href="../index.html#others-wants">상대방이 원해요</a></li>     
+                <li><a href="#">급상승</a></li>
+                <li><a href="#">쏙</a></li>
+                <li><a href="#">이벤트</a></li>
+                <li><a href="item.html">상품등록</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 상품 등록 폼 (항상 보이도록 설정) -->
+    <main>
+        <div class="item-interface-container">
+            <h2>교환할 물품</h2>
+            <div class="item-img">
+                <div class="my-item">
+                    <!-- 상품 1 -->
+                    <div class="product-container">
+                        <input type="radio" id="product1" name="selectedProduct" value="상품명 예시">
+                        <label for="product1">
+                            <a href="#">
+                                <div class="product-image">
+                                    <img src="../images/trade-icon.svg" alt="상품 이미지" class="product-img">
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="product-name">
+                                    <h3>상품명 예시</h3>
+                                </div>
+                            </a>
+                            <div class="product-price">
+                                <span>100,000 원</span>
+                                <div class="product-badge">
+                                    <img src="../images/trade-icon.svg" alt="배지" class="badge-img">
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                
+                    <!-- 상품 2 -->
+                    <div class="product-container">
+                        <input type="radio" id="product2" name="selectedProduct" value="상품명 예시 2">
+                        <label for="product2">
+                            <a href="#">
+                                <div class="product-image">
+                                    <img src="../images/trade-icon.svg" alt="상품 이미지" class="product-img">
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="product-name">
+                                    <h3>상품명 예시 2</h3>
+                                </div>
+                            </a>
+                            <div class="product-price">
+                                <span>200,000 원</span>
+                                <div class="product-badge">
+                                    <img src="../images/trade-icon.svg" alt="배지" class="badge-img">
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                
+                    <!-- 상품 3 -->
+                    <div class="product-container">
+                        <input type="radio" id="product3" name="selectedProduct" value="상품명 예시 3">
+                        <label for="product3">
+                            <a href="#">
+                                <div class="product-image">
+                                    <img src="../images/trade-icon.svg" alt="상품 이미지" class="product-img">
+                                </div>
+                            </a>
+                            <a href="#">
+                                <div class="product-name">
+                                    <h3>상품명 예시 3</h3>
+                                </div>
+                            </a>
+                            <div class="product-price">
+                                <span>150,000 원</span>
+                                <div class="product-badge">
+                                    <img src="../images/trade-icon.svg" alt="배지" class="badge-img">
+                                </div>
+                            </div>
+                    </div>
+                    <div class="item-upload-container">
+                        <a href="item.html" class="upload-box" id="custom-upload-box" target="_blank">
+                            <img src="../images/plusbox.svg" alt="새 상품 등록">새 상품 등록
+                        </a>
+                    </div>
+                    
+                </div> 
+        </div>
+        <div id="details">
+            <span id="image-count">추가 메시지</span>
+            <textarea id="item_details" rows="4" cols="50" placeholder="메시지를 적어주세요."></textarea>
+        </div>
+        <div id="upload-container">
+            <button id="upload-button">제안 보내기</button>
+        </div>
+        
+    </main>
+
+    <!-- 오른쪽바 -->
+    <div style="flex: 0 0 auto;">
+        <div class="container" id="stickyContainer">
+            <button type="button" value="Top" onclick="clickme()" style="width: 100%; margin-bottom: 10px; padding: 5px; border-radius: 5px; background: white; border: 1px solid #0880F8;">Top</button>
+            <div class="heart-container">
+                <div class="heart">❤️</div>
+                <span class="heart-count">2</span> <!-- 하트 받은 개수 -->
+            </div>
+            <hr class="divider"> <!-- 구분선-->
+            <div class="recent-viewed">최근 본 상품</div>
+            <ul id="recentViewedList"></ul> <!-- 최근 본 상품 목록 -->
+            <ul id="delete-btn"></ul>
+            <!-- 전체 삭제 버튼 -->
+        </div>
+    </div>
+
+    <script src="../scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.sql.*, termpackage.DBConnection" %>
+<%@ page session="true" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>바꾸다</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="overflow-x: hidden">
+
+    <!-- 상단 -->
+    <header class="header">
+        <img src="images/top_banner.svg" alt="맨위 로고" class="top-bar">
+        <div class="search-bar">
+            <a href="index.jsp"><img src="images/main_logo.svg" alt="로고" class="logo"></a>
+            <form id="searchForm" action="html/search_result.jsp" method="GET">
+                <div class="search-input-container">
+                    <input type="text" placeholder="🔍 물품명, 장터명, 카테고리 태그 등" class="search-input" id="searchInput" name="query">
+                    <button type="submit" class="search-button" id="searchButton">🔍</button>
+                </div>
+            </form>
+            <div class="icons">
+                <a href="html/bookmark.jsp"><img src="images/bookmark01.png" alt="북마크" class="icons"></a>
+                <img src="images/favorite01.png" alt="즐겨찾기" class="icons">
+                <a href="html/my_interface.jsp"><img src="images/interpace01.png" alt="내정보" class="icons"></a>
+                <% 
+                    String username = (String) session.getAttribute("username");
+                    if (username != null) {
+                %>
+                    <a href="html/my_interface.jsp"><input type="button" class="icons" value="<%= username %>" /></a>
+                    <a href="html/logout.jsp"><input type="button" class="icons" value="로그아웃" /></a>
+                <% 
+                    } else {
+                %>
+                    <a href="html/login.html"><input type="button" class="icons" value="로그인" /></a>
+                <% 
+                    }
+                %>
+            </div>
+        </div>
+        <nav class="manu-bar">
+            <button class="category-btn">카테고리</button>
+            <a href="index.jsp#my-wants">내가 원해요</a>
+            <a href="index.jsp#others-wants">상대방이 원해요</a>     
+            <a href="#">급상승</a>
+            <a href="#">쏙</a>
+            <a href="#">이벤트</a>
+            <a href="html/item.jsp">상품등록</a>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <img src="images/main_banner1.svg" alt="배너" class="banner" style="object-fit: cover;">
+    </div>
+
+    <div style="display: flex;">
+        <div style="flex: 1;">
+            <main class="main">
+                <!-- 내가 원해요 섹션 -->
+                <h2 id="my-wants">내가 원해요</h2><br>
+                <section class="my-wants">
+                    <div class="wants-container">
+                        <% 
+                            Connection conn = DBConnection.getConnection();
+                            if (conn != null) {
+                                try (Statement stmt = conn.createStatement();
+                                     ResultSet rs = stmt.executeQuery("SELECT pd_name, pd_price, pd_image FROM products WHERE owner = 'my_wants'")) {
+
+                                    while (rs.next()) {
+                        %>
+                        <div class="want-item">	
+                            <img src="<%= rs.getString("pd_image") %>" alt="상품 이미지" class="pd-image">
+                            <h5 class="pd-name"><%= rs.getString("pd_name") %></h5>
+                            <p class="pd-price">₩<%= rs.getInt("pd_price") %></p>
+                            <a href="#" class="trade-button">거래하기</a>
+                        </div>
+                        <% 
+                                    }
+                                } catch (SQLException e) {
+                                    out.println("쿼리 실행 중 오류 발생: " + e.getMessage());
+                                } finally {
+                                    try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+                                }
+                            } else {
+                                out.println("DB 연결 실패");
+                            }
+                        %>
+                    </div>
+                </section>
+
+                <!-- 상대방이 원해요 섹션 -->
+                <h2 id="others-wants">상대방이 원해요</h2><br>
+                <section class="others-wants">
+                    <div class="wants-container">
+                        <% 
+                            conn = DBConnection.getConnection();
+                            if (conn != null) {
+                                try (Statement stmt = conn.createStatement();
+                                     ResultSet rs = stmt.executeQuery("SELECT pd_name, pd_price, pd_image FROM products WHERE owner = 'others_wants'")) {
+                                    int rowCount = 0;
+                                    while (rs.next()) {
+                                        rowCount++;
+                        %>
+                        <div class="want-item">
+                            <img src="<%= rs.getString("pd_image") %>" alt="상품 이미지" class="pd-image">
+                            <h5 class="pd-name"><%= rs.getString("pd_name") %></h5>
+                            <p class="pd-price">₩<%= rs.getInt("pd_price") %></p>
+                            <a href="#" class="trade-button">거래하기</a>
+                        </div>
+                        <% 
+                                    }
+                                    if (rowCount == 0) {
+                                        out.println("<p>상대방이 원해요 섹션에 상품이 없습니다.</p>");
+                                    }
+                                } catch (SQLException e) {
+                                    out.println("쿼리 실행 중 오류 발생: " + e.getMessage());
+                                } finally {
+                                    try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+                                }
+                            } else {
+                                out.println("DB 연결 실패");
+                            }
+                        %>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div style="flex: 0 0 auto;">
+        <div class="container" id="stickyContainer">
+            <button type="button" onclick="clickme()" style="width: 100%; margin-bottom: 10px; padding: 5px; border-radius: 5px; background: white; border: 1px solid #0880F8;">Top</button>
+            <div class="heart-container">
+                <div class="heart">❤️</div>
+                <span class="heart-count">2</span>
+            </div>
+            <hr class="divider">
+            <div class="recent-viewed">최근 본 상품</div>
+            <ul id="recentViewedList"></ul>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

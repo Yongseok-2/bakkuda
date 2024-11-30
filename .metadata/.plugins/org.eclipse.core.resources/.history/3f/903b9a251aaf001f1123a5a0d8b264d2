@@ -1,0 +1,77 @@
+<!-- test.jsp -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*, termpackage.DBConnection" %>
+<%@ page import="java.io.*, javax.servlet.*" %>
+
+<html>
+<head>
+    <title>장터 정보 입력</title>
+</head>
+<body>
+    <h2>장터 정보 입력</h2>
+    <form action="test.jsp" method="POST" enctype="multipart/form-data">
+        <label for="market_name">장터 이름:</label>
+        <input type="text" id="market_name" name="market_name" required><br>
+
+        <label for="description">장터 설명:</label>
+        <textarea id="description" name="description" required></textarea><br>
+
+        <label for="image">장터 이미지:</label>
+        <input type="file" id="image" name="image"><br>
+
+        <input type="submit" value="저장">
+    </form>
+
+    <% 
+        // 폼에서 데이터 전송된 경우 처리
+        if ("POST".equalsIgnoreCase(request.getMethod())) {
+            // 입력값 받기
+            String marketName = request.getParameter("market_name");
+            String description = request.getParameter("description");
+            Part imagePart = request.getPart("image"); // 파일 받기
+
+            String imageUrl = null;
+            if (imagePart != null && imagePart.getSize() > 0) {
+                String fileName = imagePart.getSubmittedFileName();
+                String uploadPath = application.getRealPath("/uploads/") + fileName;
+
+                // 이미지 파일 저장
+                try (InputStream fileContent = imagePart.getInputStream()) {
+                    File file = new File(uploadPath);
+                    try (OutputStream os = new FileOutputStream(file)) {
+                        byte[] buffer = new byte[1024];
+                        int length;
+                        while ((length = fileContent.read(buffer)) != -1) {
+                            os.write(buffer, 0, length);
+                        }
+                    }
+                    imageUrl = "uploads/" + fileName;
+                } catch (IOException e) {
+                    out.println("<p>이미지 업로드 실패: " + e.getMessage() + "</p>");
+                }
+            }
+
+            // DB에 저장
+            try (Connection conn = DBConnection.getConnection()) {
+                String insertSQL = "INSERT INTO users (id, pw, market_name, description, image_url) VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+                    pstmt.setString(1, "user_id"); // 예시로 사용자 ID
+                    pstmt.setString(2, "password"); // 예시로 비밀번호
+                    pstmt.setString(3, marketName);
+                    pstmt.setString(4, description);
+                    pstmt.setString(5, imageUrl); // 이미지 URL 저장
+
+                    int rowsInserted = pstmt.executeUpdate();
+                    if (rowsInserted > 0) {
+                        out.println("<p>장터 정보가 성공적으로 저장되었습니다.</p>");
+                    } else {
+                        out.println("<p>저장 실패. 다시 시도해주세요.</p>");
+                    }
+                }
+            } catch (SQLException e) {
+                out.println("<p>DB에 저장하는 중 오류가 발생했습니다: " + e.getMessage() + "</p>");
+            }
+        }
+    %>
+</body>
+</html>

@@ -1,0 +1,169 @@
+const photoInput = document.getElementById("photo-input");
+const customUploadBox = document.getElementById("custom-upload-box");
+const photoPreview = document.getElementById("photo-preview");
+const imageCountText = document.getElementById("image-count");
+
+const categorySelect = document.getElementById('category');
+const subcategoryContainer = document.getElementById('subcategory-container');
+const subcategoryOptions = document.getElementById('subcategory-options');
+
+// 이미지 등록 버튼 클릭 시 파일 선택창 열기
+customUploadBox.addEventListener("click", () => {
+    photoInput.click();
+});
+
+// 파일 선택 시 처리
+photoInput.addEventListener("change", () => {
+    const files = Array.from(photoInput.files);
+    photoPreview.innerHTML = ""; // 기존 사진 초기화
+
+    if (files.length > 10) {
+        alert("최대 10개의 사진만 업로드할 수 있습니다.");
+        photoInput.value = ""; // 선택 초기화
+        imageCountText.textContent = "물품 이미지(0/10)";
+        return;
+    }
+
+    // 사진 미리보기 생성
+    files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.alt = "Uploaded photo";
+            photoPreview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // 물품 이미지 개수 업데이트
+    imageCountText.textContent = `물품 이미지(${files.length}/10)`;
+});
+
+// tradeCheckbox 클릭 시 입력 필드 보이기/숨기기
+const tradeCheckbox = document.getElementById('trade-checkbox');
+const tradeInput = document.getElementById('tradeInput');
+
+tradeCheckbox.addEventListener('change', () => {
+    if (tradeCheckbox.checked) {
+        tradeInput.classList.remove('hidden');  // 체크되면 보이게
+    } else {
+        tradeInput.classList.add('hidden');  // 체크 해제되면 숨기기
+    }
+});
+
+// 판매 체크박스 클릭 시 입력 필드 보이기/숨기기
+const sellCheckbox = document.getElementById('sell-checkbox');
+const sellInput = document.getElementById('sellInput');
+
+sellCheckbox.addEventListener('change', () => {
+    if (sellCheckbox.checked) {
+        sellInput.classList.remove('hidden');  // 체크되면 보이게
+    } else {
+        sellInput.classList.add('hidden');  // 체크 해제되면 숨기기
+    }
+});
+
+
+
+const subcategories = {
+    "노트북": ["좋은 노트북 1", "좋은 노트북 2"],
+    "지이잉": ["지이잉 아이템 1", "지이잉 아이템 2"],
+    "기타": ["기타 항목 1", "기타 항목 2"]
+};
+
+// 카테고리 변경 시 세부 항목 표시
+categorySelect.addEventListener('change', () => {
+    const selectedCategory = categorySelect.value;
+    subcategoryOptions.innerHTML = ''; // 기존 항목 초기화
+
+    if (subcategories[selectedCategory]) {
+        // 세부 항목 추가
+        subcategories[selectedCategory].forEach(item => {
+            const button = document.createElement('button');
+            button.textContent = item;
+            button.classList.add('subcategory-item');
+            button.addEventListener('click', () => saveToDB(selectedCategory, item));
+            subcategoryOptions.appendChild(button);
+        });
+
+        // 세부 항목 컨테이너 표시
+        subcategoryContainer.style.display = 'block';
+    } else {
+        subcategoryContainer.style.display = 'none';
+    }
+});
+
+// DB 저장 함수
+function saveToDB(category, subcategory) {
+    const data = { category, subcategory };
+
+    fetch('/save-category', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('DB에 저장되었습니다.');
+            } else {
+                alert('DB 저장 실패');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+const categorySelect = document.getElementById('category');
+const subcategoryContainer = document.getElementById('subcategory-container');
+const subcategoryOptions = document.getElementById('subcategory-options');
+
+// 카테고리별 세부 항목 정의
+const subcategories = {
+    "노트북": ["좋은 노트북 1", "좋은 노트북 2"],
+    "지이잉": ["지이잉 아이템 1", "지이잉 아이템 2"],
+    "기타": ["기타 항목 1", "기타 항목 2"]
+};
+
+// 카테고리 변경 시 세부 항목 표시
+categorySelect.addEventListener('change', () => {
+    const selectedCategory = categorySelect.value;
+    subcategoryOptions.innerHTML = ''; // 기존 항목 초기화
+
+    if (subcategories[selectedCategory]) {
+        // 세부 항목 추가
+        subcategories[selectedCategory].forEach(item => {
+            const button = document.createElement('button');
+            button.textContent = item;
+            button.classList.add('subcategory-item');
+            button.addEventListener('click', () => saveToDB(selectedCategory, item));
+            subcategoryOptions.appendChild(button);
+        });
+
+        // 세부 항목 컨테이너 표시
+        subcategoryContainer.style.display = 'block';
+    } else {
+        subcategoryContainer.style.display = 'none';
+    }
+});
+
+// DB 저장 함수
+function saveToDB(category, subcategory) {
+    const data = { category, subcategory };
+
+    fetch('/save-category', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('DB에 저장되었습니다.');
+            } else {
+                alert('DB 저장 실패');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}

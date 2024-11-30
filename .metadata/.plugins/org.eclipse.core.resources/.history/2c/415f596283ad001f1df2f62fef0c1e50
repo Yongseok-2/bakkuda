@@ -1,0 +1,135 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="termpackage.DBConnection" %>
+<%@ page import="java.io.File" %>
+<%@ page import="javax.servlet.http.Part" %>
+<%@ page import="java.io.IOException" %>  <!-- IOException import 추가 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 등록</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/item.css">
+</head>
+<body style="overflow-x: hidden">
+
+    <!-- 상단 -->
+    <header class="header">
+        <img src="../images/top_banner.svg" alt="맨위 로고" class="top-bar">
+        <div class="search-bar">
+            <a href="../index.jsp"><img src="../images/main_logo.svg" alt="로고" class="logo"></a>
+            <form id="searchForm" action="search_result.jsp" method="GET">
+                <div class="search-input-container">
+                    <input type="text" placeholder="🔍 물품명, 장터명, 카테고리 태그 등" class="search-input" id="searchInput" name="query">
+                    <button type="submit" class="search-button" id="searchButton">🔍</button>
+                </div>
+            </form>
+            <div class="icons">
+                <a href="../html/bookmark.jsp"><img src="../images/bookmark01.png" alt="북마크" class="icons"></a>
+                <img src="../images/favorite01.png" alt="즐겨찾기" class="icons">
+                <a href="../html/my_interface.jsp"><img src="../images/interpace01.png" alt="내정보" class="icons"></a>
+            </div>
+        </div>
+        <nav class="manu-bar">
+            <button class="category-btn">카테고리</button>
+            <a href="../index.jsp#my-wants">내가 원해요</a>
+            <a href="../index.jsp#others-wants">상대방이 원해요</a>
+            <a href="#">급상승</a>
+            <a href="#">쏙</a>
+            <a href="#">이벤트</a>
+            <a href="item.jsp">상품등록</a>
+        </nav>
+    </header>
+
+    <!-- 상품 등록 폼 -->
+    <main class="main-container">
+		<form action="item.jsp" method="POST" action="process.jsp">
+		    <!-- 상품 이름 입력 -->
+		    <label for="pd_name">상품 이름:</label>
+		    <input type="text" id="pd_name" name="pd_name" required>
+		    
+		    <!-- 가격 입력 -->
+		    <label for="pd_price">가격:</label>
+		    <input type="number" id="pd_price" name="pd_price" required>
+		
+		    <!-- 설명 입력 -->
+		    <label for="pd_information">상품 설명:</label>
+		    <textarea id="pd_information" name="pd_information" required></textarea>
+		
+		    <!-- 이미지 파일 업로드 -->
+		    <label for="pd_image">이미지 선택:</label>
+		    <input type="file" id="pd_image" name="pd_image" required>
+		
+		    <!-- 카테고리 선택 -->
+		    <label for="category">카테고리:</label>
+		    <select name="category" id="category" required>
+		        <option value="electronics">전자제품</option>
+		        <option value="clothing">의류</option>
+		        <!-- 다른 카테고리들 -->
+		    </select>
+		
+		    <!-- 제출 버튼 -->
+		    <button type="submit">상품 등록</button>
+		</form>
+
+    </main>
+<% 
+        if ("POST".equalsIgnoreCase(request.getMethod())) {
+            // 폼에서 전달된 값 받기
+            String pd_name = request.getParameter("pd_name");
+            int pd_price = Integer.parseInt(request.getParameter("pd_price"));
+            String pd_information = request.getParameter("pd_information");
+            String category = request.getParameter("category");
+            String owner = request.getParameter("owner");
+            String pd_image = request.getParameter("pd_image");
+            String pd_status = request.getParameter("pd_status");
+
+            Connection conn = null;
+            PreparedStatement stmt = null;
+
+            try {
+                // DB 연결
+                conn = DBConnection.getConnection();
+                if (conn != null) {
+                    System.out.println("DB 연결 성공");
+
+                    // SQL 쿼리
+                    String sql = "INSERT INTO products (pd_name, pd_price, pd_image, pd_information, owner, pd_status, category) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    stmt = conn.prepareStatement(sql);
+                    stmt.setString(1, pd_name);
+                    stmt.setInt(2, pd_price);
+                    stmt.setString(3, pd_image);
+                    stmt.setString(4, pd_information);
+                    stmt.setString(5, owner);
+                    stmt.setString(6, pd_status);
+                    stmt.setString(7, category);
+
+                    // 쿼리 실행
+                    int rowsAffected = stmt.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        out.println("<p>상품 등록 성공!</p>");
+                    } else {
+                        out.println("<p>상품 등록 실패. 다시 시도해 주세요.</p>");
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                out.println("<p>에러 발생: " + e.getMessage() + "</p>");
+            } finally {
+                try {
+                    if (stmt != null) stmt.close();
+                    if (conn != null) conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    %>
+
+
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%
+    String username = (String) session.getAttribute("username");
+
+    if (username == null) {
+        response.sendRedirect("login.html"); // 로그인되지 않은 상태에서 접근 시 로그인 페이지로 리다이렉트
+        return;
+    }
+
+    // 여기서 로그인된 사용자 정보를 이용해 필요한 데이터를 가져올 수 있습니다.
+%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/interface.css">
+</head>
+<body>
+    <!--상단-->
+    <header class="header">
+        <img src="../images/top_banner.svg" alt="맨위 로고" class="top-bar">
+        <div class="search-bar">
+            <a href="../index.html"><img src="../images/main_logo.svg" alt="로고" class="logo"></a>
+            <form id="searchForm" action="search_result.html" method="GET">
+                <div class="search-input-container">
+                    <input type="text" placeholder="🔍 물품명, 장터명, 카테고리 태그 등" class="search-input" id="searchInput" name="query">
+                    <button type="submit" class="search-button" id="searchButton">🔍</button>
+                </div>
+            </form>
+                <div class="icons">
+                    <a href="../html/bookmark.html"><span><img src="../images/bookmark01.png" alt="북마크" class="icons"></span></a>
+                    <span><img src="../images/favorite01.png" alt="즐겨찾기" class="icons"></span>
+                    <a href="../html/my_interface.html"><span><img src="../images/interpace01.png" alt="내정보" class="icons"></span></a>
+                    <a href="../html/login.html"><input type="button" class="icons" value="로그인"/></a>
+                </div>
+            </div>
+        </div>
+        <nav class="manu-bar">
+            <button class="category-btn">카테고리</button>
+            <a href="../index.html#my-wants">내가 원해요</a>
+            <a href="../index.html#others-wants">상대방이 원해요</a>     
+            <a href="#">급상승</a>
+            <a href="#">쏙</a>
+            <a href="#">이벤트</a>
+            <a href="item.html">상품등록</a>
+        </nav>
+    </header>
+
+    <main class="interface-main">
+        <div class="interface-container">
+            <div class="interface-img-container">
+                <div class="interface-img" id="profileImage">
+                    <span class="change-text" id="changeText">이미지 변경</span>
+                </div>
+                <input type="file" id="imageInput" style="display: none;" accept="image/*">
+                <h3 id="market-name-img">장터1231412호</h3>
+                <div class="interface-star">
+                    <img src="../images/star01.png" width="15" height="14" alt="별점">
+                    <img src="../images/star01.png" width="15" height="14" alt="별점">
+                    <img src="../images/star01.png" width="15" height="14" alt="별점">
+                    <img src="../images/star01.png" width="15" height="14" alt="별점">
+                    <img src="../images/star01.png" width="15" height="14" alt="별점">
+                </div>
+            </div>
+            <div class="interface-name-container">
+                <div class="interface-name">
+                    <h3 id="market-name-text">장터1231412호
+                        <button id="update-name-button" class="update-button">장터명 수정</button>
+                    </h3>
+                    <p id="market-description"></p>
+                    <textarea id="description-editor" class="description-editor" maxlength="1000" style="display: none;"></textarea>
+                    <button id="edit-description-button" class="update-button">소개글 수정</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
