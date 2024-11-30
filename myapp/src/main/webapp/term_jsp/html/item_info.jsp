@@ -198,7 +198,7 @@
 			                    <div class="shop-details">
 			                        <div class="shop-name"><%=owner %>님의 창고</div>   <!-- 나중에 nickname으로 바꿔야할거같음 -->
 			                        <div class="shop-sum">
-			                            <a href="#">물품<div class="user-item-count">2</div></a>
+			                            <a href="other_interface.jsp?owner=<%= owner %>">물품<div class="user-item-count">2</div></a>
 			                            <div class="divider-small"></div>
 			                            <a href="#">팔로워<div class="user-follower-count">10</div></a>
 			                            <div class="divider-small"></div>
@@ -260,7 +260,8 @@
                                     <img src="<%= "../" + similarImage %>" alt="<%= similarName %>" class="pd-image">
                                     <div class="item-details">
                                         <div class="pd-name"><%= similarName %></div>
-                                        <div class="pd-price"><%= similarPrice %> 원<%= tradeIcons %>
+                                        <div class="pd-price"><%= similarPrice %> 원
+										<%= tradeIcons.replaceAll("<img ", "<img style='width: 20px; height: 20px;' ") %>
                                         </div>
                                     </div>
                                 </a>

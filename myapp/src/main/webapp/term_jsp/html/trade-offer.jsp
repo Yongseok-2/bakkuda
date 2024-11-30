@@ -79,50 +79,59 @@
     <div class="item-interface-container">
         <h2>교환할 물품</h2>
         <div class="lastest-item">
-        <%
-            try (Connection conn = DBConnection.getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(
-                     "SELECT product_id, pd_name, pd_price, pd_image, trade_method " +
-                     "FROM products WHERE owner = ?")) { // owner 조건만 포함
-
-                pstmt.setString(1, username); // 현재 로그인 사용자 설정
-
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    boolean hasResults = false; // 결과 유무 확인
-                    while (rs.next()) {
-                        hasResults = true;
-                        String tradeMethod = rs.getString("trade_method");
-                        String tradeIcon = "images/default-icon.svg"; // 기본 아이콘
-
-                        if ("exchange".equalsIgnoreCase(tradeMethod)) {
-                            tradeIcon = "../images/trade-icon.svg"; // 교환 아이콘
-                        } else if ("sell".equalsIgnoreCase(tradeMethod)) {
-                            tradeIcon = "../images/sell-icon.svg"; // 판매 아이콘
-                        }
-        %>
-                        <div class="product-container">
-                        	<input type="radio" id="product1" name="selectedProduct" value="상품명 예시">
-                            <div class="want-item">
-                                <a href="../html/item_info.jsp?product_id=<%= rs.getInt("product_id") %>">
-                                    <img src="<%= "../" + rs.getString("pd_image") %>" alt="상품 이미지" class="pd-image">
-                                    <h5 class="pd-name"><%= rs.getString("pd_name") %></h5>
-                                    <p class="pd-price">
-                                        ₩<%= rs.getInt("pd_price") %>
-                                        <img src="<%= tradeIcon %>" alt="<%= tradeMethod %>" class="trade-icon">
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-        <%
-                    }
-                    if (!hasResults) {
-                        out.println("<p>등록된 물품이 없습니다.</p>");
-                    }
-                }
-            } catch (SQLException e) {
-                out.println("<p>상품 정보를 로드하는 중 오류가 발생했습니다: " + e.getMessage() + "</p>");
-            }
-        %>
+		<%
+		    try (Connection conn = DBConnection.getConnection();
+		         PreparedStatement pstmt = conn.prepareStatement(
+		             "SELECT product_id, pd_name, pd_price, pd_image, trade_method " +
+		             "FROM products WHERE owner = ?")) { // owner 조건만 포함
+		
+		        pstmt.setString(1, username); // 현재 로그인 사용자 설정
+		
+		        try (ResultSet rs = pstmt.executeQuery()) {
+		            boolean hasResults = false; // 결과 유무 확인
+		            while (rs.next()) {
+		                hasResults = true; // 결과가 있으면 true로 설정
+		                String tradeMethod = rs.getString("trade_method"); // trade_method 값을 가져옴
+		                String tradeIcons = "";
+		
+		                // trade_method가 ','로 구분된 값을 포함할 수 있기 때문에 이를 처리
+		                if (tradeMethod != null) {
+		                    String[] methods = tradeMethod.split(","); // 콤마로 구분된 값을 배열로 분리
+		
+		                    // 'exchange'와 'sell' 값을 확인해서 각각 아이콘을 지정
+		                    for (String method : methods) {
+		                        if ("exchange".equalsIgnoreCase(method.trim())) {
+		                            tradeIcons += "<img src='../images/trade-icon.svg' alt='물물교환 아이콘' class='trade-icon'>"; // 교환 아이콘
+		                        } else if ("sell".equalsIgnoreCase(method.trim())) {
+		                            tradeIcons += "<img src='../images/sell-icon.svg' alt='판매 아이콘' class='trade-icon'>"; // 판매 아이콘
+		                        }
+		                    }
+		                }
+		%>
+		                <div class="product-container">
+		                    <input type="radio" id="product1" name="selectedProduct" value="상품명 예시">
+		                    <div class="want-item">
+		                        <a href="../html/item_info.jsp?product_id=<%= rs.getInt("product_id") %>">
+		                            <img src="<%= "../" + rs.getString("pd_image") %>" alt="상품 이미지" class="pd-image">
+		                            <h5 class="pd-name"><%= rs.getString("pd_name") %></h5>
+		                            <p class="pd-price">
+		                                ₩<%= rs.getInt("pd_price") %>
+		                                <%= tradeIcons %>
+		                            </p>
+		                        </a>
+		                    </div>
+		                </div>
+		<%
+		            }
+		            // 만약 결과가 없다면
+		            if (!hasResults) {
+		                out.println("<p>등록된 물품이 없습니다.</p>");
+		            }
+		        }
+		    } catch (SQLException e) {
+		        out.println("<p>상품 정보를 로드하는 중 오류가 발생했습니다: " + e.getMessage() + "</p>");
+		    }
+		%>
         </div>
     </div>
 </main>

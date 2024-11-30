@@ -33,7 +33,7 @@
     }
 
     // 파일 업로드 처리
-    String uploadPath = "D:\\term\\myapp\\src\\main\\webapp\\upload"; // 파일 저장 경로
+    String uploadPath = "C:\\Users\\Beomryeol\\git\\bakkuda\\myapp\\src\\main\\webapp\\term_jsp\\upload"; // 파일 저장 경로
     int maxSize = 5 * 1024 * 1024; // 5MB 제한
     String encoding = "UTF-8";
 
