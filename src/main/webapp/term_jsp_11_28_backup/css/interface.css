@@ -1,0 +1,118 @@
+.interface-main {
+    margin: 30px;
+    display: flex;
+    flex-direction: column; /* 세로로 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center;    /* 가로 중앙 정렬 */
+    margin-top: 300px;
+}
+
+.interface-container {
+    display: flex; /* 가로 정렬 */
+    flex-direction: row; /* 행 방향으로 배치 */
+    width: 70%;
+    text-align: left;
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.interface-img-container {
+    background-color: rgb(87, 87, 87);
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 세로 중앙 정렬 */
+    align-items: center;    /* 가로 중앙 정렬 */
+}
+
+.interface-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 300px;
+    background-color: white;
+    margin-bottom: 15px;
+}
+
+.interface-star {
+    background-color: rgb(87, 87, 87);
+}
+
+.interface-name-container {
+    background-color: #f3f3f3;
+    padding: 20px;
+    width: 800px; /* 너비 고정 */
+    height: 300px; /* 높이를 고정 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    position: relative;
+}
+.interface-name h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.interface-name p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.update-button {
+    margin-left: 5px;
+    border: 1px solid rgb(182, 182, 182);
+    padding: 2px;
+    color: #a3a3a3;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.update-button:hover {
+    background-color: #0056b3; 
+}
+
+#market-description {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    width: 100%;
+    max-height: 130px;
+    overflow-y: auto;
+    margin-top: 10px;
+    padding: 5px;
+    white-space: normal; /* 텍스트가 넘칠 때 줄 바꿈 */
+    word-wrap: break-word; /* 일반적인 텍스트에 줄 바꿈 적용 */
+    word-break: break-all; /* 숫자와 긴 단어도 줄 바꿈 */
+}
+#edit-description-button {
+    position: absolute;
+    bottom: 20px; /* 아래쪽 간격 */
+    left: 20px;   /* 왼쪽 간격 */
+}
+
+.description-editor {
+    width: 100%; /* 부모 요소의 너비에 맞춤 */
+    height: 130px; /* 기본 높이 */
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none; /* 크기 조절 불가 */
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    line-height: 1.5;
+    white-space: normal; /* 텍스트가 넘칠 때 줄 바꿈 */
+    overflow-wrap: break-word; /* 긴 단어, 숫자도 줄 바꿈 */
+}
+
+#edit-description-button {
+    margin-top: 10px;
+}
+
+.update-button {
+    margin-top: 10px;
+}
