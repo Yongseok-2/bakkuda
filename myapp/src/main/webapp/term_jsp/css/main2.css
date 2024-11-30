@@ -1,0 +1,137 @@
+/* 배너 전체를 감싸는 컨테이너 */
+.banner-container {
+    width: 100%; /* 페이지 전체 너비 */
+    height: auto;
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    z-index: 9; /* 헤더보다 아래로 */
+    align-items: center;
+}
+
+/* 배너 스타일 */
+.banner {
+    padding-top: 245px;
+    width: 1980px; /* 배너의 고정 너비 */
+    height: auto;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    background-color: white; /* 배경 흰색 */
+    margin-bottom: 50px;
+}
+
+.banner img {
+    width: 1980px;
+    height: auto;
+    border-bottom: 1px solid #000000;
+}
+
+.main-item-list {
+    width: 1280px;
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center;
+    margin-left: 300px;
+}
+
+.lastest-item-title {
+    width: 1280px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin-left: 350px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.lastest-item-title h2 {
+    padding-inline-start: 10px;
+}
+
+.lastest-item {
+    width: 1280px;
+    display: flex;
+    flex-wrap: wrap; /* 여러 상품이 가로로 늘어날 수 있도록 설정 */
+    margin: 0 auto;
+    margin-top: 20px; /* 배너 아래 간격 */
+    gap: 30px;
+}
+
+/* 상품 전체 컨테이너 */
+.product-container {
+    width: 220px; /* 너비 설정 */
+    text-align: left; /* 내용 왼쪽 정렬 */
+    background-color: #fff; /* 배경 색 */
+    padding: 0; /* 내부 여백 없애기 */
+    box-shadow: none; /* 그림자 없애기 */
+    margin: 10px; /* 상품 간격 추가 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.want-item {
+    text-align: center;
+}
+
+/* 상품 이미지 스타일 */
+.pd-image {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.pd-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 상품명 스타일 */
+.pd-name {
+    font-size: 18px;
+    font-weight: bold;
+    padding-inline-start: 5px;
+    margin-top: 10px;
+}
+
+/* 가격 스타일 */
+.pd-price {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    padding-inline-start: 5px;
+    margin-top: 10px;
+
+    gap: 5px; /* 텍스트와 아이콘 간격 */
+}
+
+/* 거래 방식 아이콘 스타일 */
+.trade-icon {
+    width: 20px; /* 아이콘 크기 */
+    height: 20px;
+    vertical-align: middle;
+    object-fit: contain; /* 아이콘 비율 유지 */
+}
+
+
+/* 배지 이미지 스타일 */
+.pd-badge {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.badge-img {
+    width: 20px;
+    height: auto;
+}
+
+
