@@ -33,7 +33,7 @@
             out.println("location.href = '../index.jsp';"); // 리다이렉트
             out.println("</script>");
         } else {
-            message = "<h1>로그인 실패</h1><p>아이디 또는 비밀번호를 확인하세요.</p><a href='login.html'>다시 시도</a>";
+            out.println("<script>alert('아이디와 비밀번호를 확인해주세요'); window.location.href='login.html';</script>");
         }
 
         resultSet.close();

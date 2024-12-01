@@ -1,0 +1,144 @@
+/* 공통 컨테이너 스타일 */
+.profile-make-container {
+    padding: 20px;
+    margin: 260px auto 0;
+    width: 1280px;
+    height: 1000px;
+    text-align: left;
+}
+
+.profile-make-container h2 {
+    border-bottom: 1px solid black;
+    padding-inline-start: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.profile-img {
+    display: flex; /* 텍스트와 업로드 박스를 나란히 배치 */
+    align-items: flex-start; /* 위쪽 정렬 */
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+/* 프로필 사진 업로드 */
+#image-count {
+    width: 200px;
+    padding-inline-start: 5px;
+}
+
+.photo-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.upload-box {
+    width: 200px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.upload-box span {
+    position: absolute;
+    z-index: 1;
+}
+
+.upload-box.has-image span {
+    display: none;
+}
+
+#upload-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 전환 효과 */
+}
+
+#upload-button:hover {
+    background-color: #0056b3;
+}
+
+/* 상점명 입력 필드 */
+.profile-input-container {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+}
+
+.profile-input {
+    width: 700px;
+    border: 1px solid #ccc;
+    outline: none;
+    padding: 12px;
+    font-size: 15px;
+}
+
+.profile-input:focus {
+    border-color: #ddd;
+    box-shadow: 0 0 5px #0880F8; /* 포커스 시 그림자 효과 */
+}
+
+/* 물품 설명 입력 필드 */
+#details {
+    display: flex;
+    margin-top: 30px;
+}
+
+#profile-details {
+    width: 500px;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+#profile-details:focus {
+    border-color: #ddd;
+    box-shadow: 0 0 5px #0880F8; /* 포커스 시 그림자 효과 */
+}
+
+/* 업로드 버튼 컨테이너 */
+#upload-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+#upload-button {
+    background-color: #0880F8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#upload-button:hover {
+    background-color: #0056b3;
+}
+
+#upload-button:active {
+    background-color: #003f7d;
+}
